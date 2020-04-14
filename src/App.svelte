@@ -9,17 +9,17 @@
     if (e.keyCode < 65 && e.keyCode !== 16)
       questionsStore.search(titleText + ' ' + questionText)
   }
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     window.alert(`posting question, ${titleText}: ${questionText}`)
   }
-  const resetQuestion = () => {
+  const resetQuestion = (e) => {
     questionText = ''
     titleText = ''
   }
   questionsStore.fetch()
 </script>
 <main class="stack">
-  <form on:submit|preventDefault="{handleSubmit}" class="stack">
+  <div class="form stack">
     <h2>Ask for help: </h2>
     <input
       class="titleInput"
@@ -35,9 +35,9 @@
     ></textarea>
     <div class="formButtons">
       <button on:click="{resetQuestion}">Cancel</button>
-      <button type="submit">Submit</button>
+      <button on:click="{handleSubmit}">Submit</button>
     </div>
-  </form>
+  </div>
   <QuestionsList questions="{$questionsStore}"></QuestionsList>
 </main>
 <style>
@@ -55,12 +55,12 @@
     font-size: var(--s1);
     font-weight: 600;
   }
-  form {
+  .form {
     background-color: var(--grey);
     padding: var(--s1);
-    max-width: var(--measure);
+    max-width: calc(var(--measure) + (2 * var(--s1)));
     margin: var(--s1) auto;
-    width: 80%;
+    width: 100%;
   }
   .formButtons {
     display: flex;
