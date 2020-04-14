@@ -4,8 +4,8 @@
     title,
     voteCount,
     createdAt,
-    keyTerms,
-    numMatches,
+    keyTerms = new Set(),
+    numMatches = 0,
     accepted = false
 </script>
 <div class="question stack">
