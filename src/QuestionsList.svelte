@@ -4,7 +4,10 @@
 </script>
 {#if questions.length}
 <div class="questionsListWrapper">
-  <h3>Possible related questions:</h3>
+  <div class="title">
+    <h3>Possible related questions:</h3>
+    <em>hint: use 'tab' to navigate this list</em>
+  </div>
   <div class="questionsList stack">
     {#each questions as question}
     <Question {...question}></Question>
@@ -21,7 +24,7 @@
   .questionsList {
     padding: var(--s1);
   }
-  h3 {
+  .title {
     background-color: var(--grey);
     padding: var(--s-1);
   }
