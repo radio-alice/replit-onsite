@@ -90,6 +90,7 @@ const tooCommonArray = [
   'would',
   'like',
   'ask',
+  'it',
 ]
 const tooCommonWords = new Set()
 tooCommonArray.forEach((word) => tooCommonWords.add(word))
