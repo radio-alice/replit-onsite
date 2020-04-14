@@ -6,7 +6,8 @@ const initQuestions = async () => {
 }
 const getNewQuestions = async (searchString) => {
   const res = await (await fetch('https://search-api.moudy.repl.co/')).json()
-  return simpleSearch(searchString, res.posts)
+  const filtered = simpleSearch(searchString, res.posts)
+  return filtered.map(highlightPost)
 }
 const createQuestionsStore = () => {
   const { subscribe, set, update } = writable([])
@@ -36,10 +37,32 @@ const stringMatches = (searchString, postToSearch) => {
         (postToSearch.body.toLowerCase().includes(term.toLowerCase()) ||
           postToSearch.title.toLowerCase().includes(term.toLowerCase()))
       ) {
-        matchTerms.add(term)
+        matchTerms.add(term.toLowerCase())
       }
     })
   return matchTerms
 }
 const comparePosts = (postA, postB) => postA.keyTerms.size - postB.keyTerms.size
+
+const highlightPost = (post) => ({
+  ...post,
+  title: highlightKeyTerms(post.keyTerms, post.title),
+  body: highlightKeyTerms(post.keyTerms, post.body),
+})
+
+// weaknesses - cannot highlight partial matches only exact
+const highlightKeyTerms = (terms, string) =>
+  string
+    .split(/([^\w])/)
+    .map((word) => {
+      console.log(terms, word)
+      console.log(terms.has(word.toLowerCase()))
+      if (terms.has(word.toLowerCase())) {
+        return `<span class="keyword">${word}</span>`
+      } else {
+        return word
+      }
+    })
+    .join('')
+
 export const questionsStore = createQuestionsStore()

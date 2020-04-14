@@ -21,6 +21,7 @@
   --trans-dark-blue: rgba(16, 0, 158, 0.9);
   --blue: rgb(26, 4, 228);
   --light-blue: rgb(42, 83, 218);
+  --trans-pink: rgb(255, 192, 239, 0.5);
   --pink: rgb(255, 192, 239);
   --green: rgb(191, 238, 195);
   --purple: rgb(22, 0, 58);
@@ -99,4 +100,8 @@ ul {
 ul li::before {
   content: '→';
   margin: 0 var(--s-2);
+}
+.keyword {
+  background-color: var(--trans-pink);
+  padding: var(--s-2) var(--s-4) var(--s-5) var(--s-4);
 }

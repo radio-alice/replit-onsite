@@ -1,12 +1,17 @@
 <script>
-  export let body, id, title, voteCount, accepted, createdAt
+  export let body,
+    id,
+    title,
+    voteCount,
+    createdAt,
+    accepted = false
 </script>
 <div class="question stack">
   <div class="row">
-    <h3 class="title">{title}</h3>
+    <h3 class="title">{@html title}</h3>
     <p>{createdAt.substring(0,10)}</p>
   </div>
-  <p class="body">{body}</p>
+  <p class="body">{@html body}</p>
   <div class="row">
     <a href="https://search-api.moudy.repl.co/" class="openQuestion"
       >Open full question thread →</a
