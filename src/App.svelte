@@ -2,26 +2,49 @@
   import Question from './Question.svelte'
   import { store } from './stores.js'
   let questionText = ''
+  let titleText = ''
   const handleSubmit = () => {
-    console.log('posting question: ', questionText)
+    console.log('posting question: ', titleText, ': ', questionText)
   }
   const resetQuestion = () => {
     questionText = ''
   }
 </script>
-<main>
+<main class="stack">
   <form on:submit|preventDefault="{handleSubmit}">
-    <textarea bind:value="{questionText}"></textarea>
-    <div>
-      <button type="submit">Submit</button>
+    <input class="titleInput" type="text" bind:value="{titleText}" placeholder="Title" />
+    <textarea bind:value="{questionText}" placeholder="your question"></textarea>
+    <div class="formButtons">
       <button on:click="{resetQuestion}">Cancel</button>
+      <button type="submit">Submit</button>
     </div>
   </form>
-  <code>{questionText}</code>
   <Question date={'01/01/01'} asker={"Zach"} title={'How do I get a job'}></Question>
 </main>
 <style>
   main {
     margin: var(--s2);
+    max-width: var(--measure);
+  }
+  textarea {
+    min-width: 100%;
+    padding: var(--s-2);
+    font-size: var(--s0);
+  }
+  .titleInput {
+    font-size: var(--s0);
+  }
+  form {
+    max-width: var(--measure);
+  }
+  .formButtons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .formButtons button {
+    font-size: var(--s0);
+    padding: var(--s-3);
+    background-color: var(--light-blue);
+    color: var(--light-grey);
   }
 </style>
