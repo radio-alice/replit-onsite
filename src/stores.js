@@ -16,7 +16,6 @@ const initQuestions = async () => {
 const getNewQuestions = async (searchString) => {
   const res = await (await fetch('https://search-api.moudy.repl.co/')).json()
   const filtered = simpleSearch(searchString, res.posts)
-  console.log(filtered)
   return filtered.map(highlightPost)
 }
 
@@ -40,7 +39,7 @@ const stringMatches = (searchString, postToSearch) => {
     .split(/([^\w])/)
     .filter((term) => !/([^\w])/.test(term))
     .forEach((term) => {
-      if (term) {
+      if (term && !tooCommonWords.has(term.toLowerCase())) {
         const termRegex = new RegExp(term.toLowerCase())
         const termMatches =
           countMatches(termRegex, postToSearch.body) +
@@ -72,4 +71,26 @@ const highlightKeyTerms = (terms, string) =>
     })
     .join('')
 
+const tooCommonArray = [
+  'i',
+  'use',
+  'has',
+  'is',
+  'to',
+  'am',
+  'not',
+  'please',
+  'as',
+  'of',
+  'out',
+  'with',
+  'the',
+  'on',
+  'for',
+  'would',
+  'like',
+  'ask',
+]
+const tooCommonWords = new Set()
+tooCommonArray.forEach((word) => tooCommonWords.add(word))
 export const questionsStore = createQuestionsStore()
