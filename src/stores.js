@@ -5,8 +5,7 @@ const createQuestionsStore = () => {
   return {
     subscribe,
     fetch: async () => set(await initQuestions()),
-    search: async (searchString) =>
-      set(await getNewQuestions(searchString, qs)),
+    search: async (searchString) => set(await getNewQuestions(searchString)),
   }
 }
 
