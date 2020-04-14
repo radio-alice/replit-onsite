@@ -1,5 +1,5 @@
 <script>
-  import Question from './Question.svelte'
+  import QuestionsList from './QuestionsList.svelte'
   import { store } from './stores.js'
   let questionText = ''
   let titleText = ''
@@ -9,17 +9,28 @@
   const resetQuestion = () => {
     questionText = ''
   }
+  const dummyQuestions = [
+    { date: '01/01/01', asker: 'Zach', title: 'How do I get a job' },
+  ]
 </script>
 <main class="stack">
   <form on:submit|preventDefault="{handleSubmit}">
-    <input class="titleInput" type="text" bind:value="{titleText}" placeholder="Title" />
-    <textarea bind:value="{questionText}" placeholder="your question"></textarea>
+    <input
+      class="titleInput"
+      type="text"
+      bind:value="{titleText}"
+      placeholder="Title"
+    />
+    <textarea
+      bind:value="{questionText}"
+      placeholder="your question"
+    ></textarea>
     <div class="formButtons">
       <button on:click="{resetQuestion}">Cancel</button>
       <button type="submit">Submit</button>
     </div>
   </form>
-  <Question date={'01/01/01'} asker={"Zach"} title={'How do I get a job'}></Question>
+  <QuestionsList questions="{dummyQuestions}"></QuestionsList>
 </main>
 <style>
   main {

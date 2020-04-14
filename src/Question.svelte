@@ -20,7 +20,7 @@
 </div>
 <style>
   .question {
-    border: 2px solid var(--light-grey);
+    background-color: var(--light-grey);
     padding: var(--s0);
   }
   .titleRow {
