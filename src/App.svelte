@@ -4,8 +4,9 @@
   let questionText = ''
   let titleText = ''
 
-  const updateQuestionsList = async () => {
-    await questionsStore.fetch()
+  // could change to only call when spacebar is pressed
+  const updateQuestionsList = (e) => {
+    if (e.keyCode < 65) questionsStore.search(titleText + ' ' + questionText)
   }
   const handleSubmit = () => {
     console.log('posting question: ', titleText, ': ', questionText)
@@ -21,12 +22,12 @@
       class="titleInput"
       type="text"
       bind:value="{titleText}"
-      on:change="{updateQuestionsList}"
+      on:keydown="{updateQuestionsList}"
       placeholder="Title"
     />
     <textarea
       bind:value="{questionText}"
-      on:change="{updateQuestionsList}"
+      on:keydown="{updateQuestionsList}"
       placeholder="your question"
     ></textarea>
     <div class="formButtons">
