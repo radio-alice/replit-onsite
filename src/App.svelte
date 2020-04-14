@@ -1,17 +1,19 @@
 <script>
   import QuestionsList from './QuestionsList.svelte'
-  import { store } from './stores.js'
+  import { questionsStore } from './stores.js'
   let questionText = ''
   let titleText = ''
+
+  const updateQuestionsList = async () => {
+    await questionsStore.fetch()
+  }
   const handleSubmit = () => {
     console.log('posting question: ', titleText, ': ', questionText)
   }
   const resetQuestion = () => {
     questionText = ''
   }
-  const dummyQuestions = [
-    { date: '01/01/01', asker: 'Zach', title: 'How do I get a job' },
-  ]
+  questionsStore.fetch()
 </script>
 <main class="stack">
   <form on:submit|preventDefault="{handleSubmit}">
@@ -19,10 +21,12 @@
       class="titleInput"
       type="text"
       bind:value="{titleText}"
+      on:change="{updateQuestionsList}"
       placeholder="Title"
     />
     <textarea
       bind:value="{questionText}"
+      on:change="{updateQuestionsList}"
       placeholder="your question"
     ></textarea>
     <div class="formButtons">
@@ -30,11 +34,11 @@
       <button type="submit">Submit</button>
     </div>
   </form>
-  <QuestionsList questions="{dummyQuestions}"></QuestionsList>
+  <QuestionsList questions="{$questionsStore}"></QuestionsList>
 </main>
 <style>
   main {
-    margin: var(--s2);
+    margin: var(--s2) auto;
     max-width: var(--measure);
   }
   textarea {

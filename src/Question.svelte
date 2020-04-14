@@ -1,19 +1,17 @@
 <script>
-  export let relevantText,
-    date,
-    numReplies,
-    numUpvotes,
-    acceptedAnswer,
-    asker,
-    title
+  export let body, id, title
+  // numReplies,
+  // numUpvotes,
+  // acceptedAnswer,
+  // asker
 </script>
 <div class="question stack">
   <div class="titleRow">
-    <p class="asker">{asker}</p>
+    <!-- <p class="asker">{asker}</p> -->
     <h3 class="title">{title}</h3>
-    <p class="date">{date}</p>
+    <p>{id}</p>
   </div>
-  <p class="body">{relevantText}</p>
+  <p class="body">{body}</p>
   <a href="https://search-api.moudy.repl.co/" class="openQuestion"
     >Open full question thread →</a
   >
@@ -29,7 +27,7 @@
   }
   .title {
     flex: auto;
-    text-align: center;
+    /* text-align: center; */
   }
   .openQuestion {
     background-color: var(--blue);

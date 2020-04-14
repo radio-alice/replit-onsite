@@ -2,16 +2,18 @@
   import Question from './Question.svelte'
   export let questions
 </script>
-<div class="stack">
+{#if questions.length}
+<div class="questionsListWrapper">
   <h3>Possible related questions:</h3>
-  <div class="questionsList">
+  <div class="questionsList stack">
     {#each questions as question}
     <Question {...question}></Question>
     {/each}
   </div>
 </div>
+{/if}
 <style>
-  .stack {
+  .questionsListWrapper {
     border: 2px solid var(--dark-blue);
   }
   .questionsList {
