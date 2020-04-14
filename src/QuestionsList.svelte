@@ -14,7 +14,9 @@
 {/if}
 <style>
   .questionsListWrapper {
+    margin: 0 auto;
     border: 2px solid var(--dark-blue);
+    max-width: max-content;
   }
   .questionsList {
     padding: var(--s1);

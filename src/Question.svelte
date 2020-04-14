@@ -12,37 +12,38 @@
   <!-- {#if numMatches}
   <p>keyterms: {numMatches}</p>
   {/if} -->
-  <div class="top row">
-    <h3 class="title">{@html title}</h3>
-    <p>{createdAt.substring(0,10)}</p>
-  </div>
+  <h3 class="title">{@html title}</h3>
   <p class="body">{@html body}</p>
-  <div class="bottom row">
-    <a href="https://search-api.moudy.repl.co/" class="openQuestion"
-      >Open full question thread →</a
-    >
+  <div class="row flush">
     {#if accepted}
     <p class="accepted">✓ Answered!</p>
     {/if}
-    <p class="voteCount">up-votes: {voteCount}</p>
+    <p class="voteCount">{voteCount} upvotes</p>
+    <p>{createdAt.substring(0,10)}</p>
   </div>
+  <a href="https://search-api.moudy.repl.co/" class="openQuestion flush"
+    >Open full question thread →</a
+  >
 </div>
 <style>
   .question {
     background-color: var(--light-grey);
     padding: var(--s0);
+    max-width: var(--measure);
+  }
+  .flush {
+    margin: var(--s0) calc(-1 * var(--s0)) calc(-1 * var(--s0))
+      calc(-1 * var(--s0));
   }
   .row {
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: var(--s-4);
+    border-top: 2px dashed var(--purple);
   }
   .row > * + * {
     margin-left: var(--s0);
-  }
-  .top {
-    align-items: top;
-  }
-  .bottom {
-    align-items: center;
   }
   .accepted {
     background-color: var(--green);
@@ -58,9 +59,10 @@
   .openQuestion {
     text-decoration: none;
     background-color: var(--blue);
+    /* margin: calc(-1 * var(--s0)); */
     color: var(--light-grey);
     font-size: var(--s0);
-    padding: var(--s-3);
-    align-self: center;
+    padding: var(--s-3) var(--s0);
+    width: 100% + calc(2 * var(--s0));
   }
 </style>
