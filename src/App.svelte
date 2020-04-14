@@ -4,9 +4,10 @@
   let questionText = ''
   let titleText = ''
 
-  // could change to only call when spacebar is pressed
+  // could change to a real debounce method
   const updateQuestionsList = (e) => {
-    if (e.keyCode < 65) questionsStore.search(titleText + ' ' + questionText)
+    if (e.keyCode < 65 && e.keyCode !== 16)
+      questionsStore.search(titleText + ' ' + questionText)
   }
   const handleSubmit = () => {
     console.log('posting question: ', titleText, ': ', questionText)
@@ -35,7 +36,7 @@
       <button type="submit">Submit</button>
     </div>
   </form>
-  <QuestionsList questions="{$questionsStore}"></QuestionsList>
+  <QuestionsList questions="{$questionsStore.questions}"></QuestionsList>
 </main>
 <style>
   main {
