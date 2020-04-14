@@ -7,12 +7,12 @@
     accepted = false
 </script>
 <div class="question stack">
-  <div class="row">
+  <div class="top row">
     <h3 class="title">{@html title}</h3>
     <p>{createdAt.substring(0,10)}</p>
   </div>
   <p class="body">{@html body}</p>
-  <div class="row">
+  <div class="bottom row">
     <a href="https://search-api.moudy.repl.co/" class="openQuestion"
       >Open full question thread →</a
     >
@@ -29,14 +29,18 @@
   }
   .row {
     display: flex;
-    align-items: center;
   }
   .row > * + * {
     margin-left: var(--s0);
   }
+  .top {
+    align-items: top;
+  }
+  .bottom {
+    align-items: center;
+  }
   .accepted {
     background-color: var(--green);
-    /* line-height: var(--s1); */
     padding: var(--s-3);
     white-space: nowrap;
   }
