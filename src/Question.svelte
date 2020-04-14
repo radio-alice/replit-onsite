@@ -51,6 +51,7 @@
     font-style: italic;
   }
   .openQuestion {
+    text-decoration: none;
     background-color: var(--blue);
     color: var(--light-grey);
     font-size: var(--s0);
