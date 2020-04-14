@@ -16,34 +16,42 @@ const initQuestions = async () => {
 const getNewQuestions = async (searchString) => {
   const res = await (await fetch('https://search-api.moudy.repl.co/')).json()
   const filtered = simpleSearch(searchString, res.posts)
+  console.log(filtered)
   return filtered.map(highlightPost)
 }
 
 const simpleSearch = (searchString, postsToSearch) =>
   postsToSearch
     .map((post) => {
-      return { ...post, keyTerms: stringMatches(searchString, post) }
+      return { ...post, ...stringMatches(searchString, post) }
     })
     .filter((post) => post.keyTerms.size > 0)
     .sort(comparePosts)
 
+const countMatches = (termRegex, string) => {
+  const matches = string.toLowerCase().match(termRegex)
+  return matches ? matches.length : 0
+}
+
 const stringMatches = (searchString, postToSearch) => {
   let matchTerms = new Set()
+  let numMatches = 0
   searchString
     .split(/([^\w])/)
     .filter((term) => !/([^\w])/.test(term))
     .forEach((term) => {
-      if (
-        term &&
-        (postToSearch.body.toLowerCase().includes(term.toLowerCase()) ||
-          postToSearch.title.toLowerCase().includes(term.toLowerCase()))
-      ) {
-        matchTerms.add(term.toLowerCase())
+      if (term) {
+        const termRegex = new RegExp(term.toLowerCase())
+        const termMatches =
+          countMatches(termRegex, postToSearch.body) +
+          countMatches(termRegex, postToSearch.title)
+        if (termMatches > 0) matchTerms.add(term.toLowerCase())
+        numMatches += termMatches
       }
     })
-  return matchTerms
+  return { keyTerms: matchTerms, numMatches }
 }
-const comparePosts = (postA, postB) => postA.keyTerms.size - postB.keyTerms.size
+const comparePosts = (postA, postB) => postB.numMatches - postA.numMatches
 
 const highlightPost = (post) => ({
   ...post,

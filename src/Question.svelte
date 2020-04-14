@@ -4,9 +4,14 @@
     title,
     voteCount,
     createdAt,
+    keyTerms,
+    numMatches,
     accepted = false
 </script>
 <div class="question stack">
+  <!-- {#if numMatches}
+  <p>keyterms: {numMatches}</p>
+  {/if} -->
   <div class="top row">
     <h3 class="title">{@html title}</h3>
     <p>{createdAt.substring(0,10)}</p>
