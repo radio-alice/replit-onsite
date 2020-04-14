@@ -1,5 +1,15 @@
 import { writable } from 'svelte/store'
 
+const createQuestionsStore = () => {
+  const { subscribe, set, update } = writable([])
+  return {
+    subscribe,
+    fetch: async () => set(await initQuestions()),
+    search: async (searchString) =>
+      set(await getNewQuestions(searchString, qs)),
+  }
+}
+
 const initQuestions = async () => {
   const res = await (await fetch('https://search-api.moudy.repl.co/')).json()
   return res.posts
@@ -8,14 +18,6 @@ const getNewQuestions = async (searchString) => {
   const res = await (await fetch('https://search-api.moudy.repl.co/')).json()
   const filtered = simpleSearch(searchString, res.posts)
   return filtered.map(highlightPost)
-}
-const createQuestionsStore = () => {
-  const { subscribe, set, update } = writable([])
-  return {
-    subscribe,
-    fetch: async () => set(await initQuestions()),
-    search: async (searchString) => set(await getNewQuestions(searchString)),
-  }
 }
 
 const simpleSearch = (searchString, postsToSearch) =>
@@ -55,8 +57,6 @@ const highlightKeyTerms = (terms, string) =>
   string
     .split(/([^\w])/)
     .map((word) => {
-      console.log(terms, word)
-      console.log(terms.has(word.toLowerCase()))
       if (terms.has(word.toLowerCase())) {
         return `<span class="keyword">${word}</span>`
       } else {

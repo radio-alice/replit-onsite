@@ -36,7 +36,7 @@
       <button type="submit">Submit</button>
     </div>
   </form>
-  <QuestionsList questions="{$questionsStore.questions}"></QuestionsList>
+  <QuestionsList questions="{$questionsStore}"></QuestionsList>
 </main>
 <style>
   main {
